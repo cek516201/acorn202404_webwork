@@ -22,6 +22,7 @@
 			<div>
 				<label for="pwd">비밀번호</label>
 				<input type="password" class="form-control" name="pwd" id="pwd"/>
+				<div class="form-text">특수 문자를 제외한 5글자 이상 10글자 이내로 작성해 주세요</div>
 				<div class="invalid-feedback">비밀 번호를 확인하세요</div>
 			</div>
 			<div>
@@ -105,11 +106,27 @@
 				checkForm();
 			});
 		});
+		
+		
+		//비밀번호를 검증할 정규 표현식
+		const reg_pwd = /^[a-zA-Z0-9]{5,10}$/;
+		
 		//함수를 미리 만들어서 
 		const checkPwd = ()=>{
 			//양쪽에 입력한 비밀번호를 읽어와서
 			let pwd=document.querySelector("#pwd").value;
 			let pwd2=document.querySelector("#pwd2").value;
+			
+			//입력한 비밀번호가 정규 표현식을 통과 하는지 확인한다.
+			if(reg_pwd.test(pwd) == false){
+				document.querySelector("#pwd").classList.remove("is-valid");
+				document.querySelector("#pwd").classList.add("is-invalid");
+				isPwdValid=false;
+				checkForm();
+				//함수를 여기서 끝내라 (종료해라, 함수를 호출했던 곳으로 돌아가라)
+				return;
+			}
+			
 			//양쪽을 같게 입력하면 is-valid 를 추가하고 그렇지 않으면 is-invalid 를 추가한다.
 			document.querySelector("#pwd").classList.remove("is-valid", "is-invalid");
 			if(pwd == pwd2){
