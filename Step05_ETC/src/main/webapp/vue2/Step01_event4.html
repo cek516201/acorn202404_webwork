@@ -27,7 +27,16 @@
 		    innerText 를  "clicked!" 
 	    	배경색을  "yellow" 로 변경되도록 해 보세요
 		*/
-		
+		new Vue({
+			el:"#app",
+			methods:{
+				divClicked(e){
+					//e.target 은 이벤트(click)가 발생한 바로 그요소의 참조값 
+					e.target.innerText = "clicked!";
+					e.target.style.backgroundColor="yellow";
+				}
+			}
+		});
 	</script>
 </body>
 </html>
