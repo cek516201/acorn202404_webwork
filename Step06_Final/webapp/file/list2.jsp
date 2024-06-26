@@ -43,51 +43,19 @@
 	
 	//pageNum 에 해당하는 목록만 얻어오기
 	List<FileDto> list=FileDao.getInstance().getList(startRowNum, endRowNum);
-	
-	// 로그인된 사용자 읽어오기 (로그인 되지 않았다면 null 이다)
-	String id=(String)session.getAttribute("id");
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/list.jsp</title>
-<style>
-	/* ul 의 기본 스타일 제거 */
-	.page-list{
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-	}
-	
-	.page-list li{
-		float: left; /* li 가 필요한 만큼의 폭만 차지하면서 가로로 배치 되도록 */
-		padding: 5px;
-	}
-	
-	.page-list li:hover{
-		background-color: #cecece;
-	}
-	
-	.page-list li a{
-		color: #000;
-		text-decoration: none;
-	}
-	
-	.page-list li.active a{
-		color: red;
-		text-decoration: underline;
-		font-weight: bold;
-	}
-	
-</style>
+<title>/file/list2.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
 		<a href="${pageContext.request.contextPath }/file/private/upload_form.jsp">업로드 하러 가기</a>
 		<h1>자료실 목록 입니다</h1>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -95,7 +63,6 @@
 					<th>제목</th>
 					<th>파일명</th>
 					<th>등록일</th>
-					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,35 +75,29 @@
 						<a href="download.jsp?num=<%=tmp.getNum() %>"><%=tmp.getOrgFileName() %></a>
 					</td>
 					<td><%=tmp.getRegdate() %></td>
-					<td>
-						<%-- 글 작성자와 로그인된 아이디와 같을때만 삭제 링크를 출력해 준다 --%>
-						<%if(tmp.getWriter().equals(id)){ %>
-							<a href="private/delete.jsp?num=<%=tmp.getNum() %>">삭제</a>
-						<%}%>
-					</td>
 				</tr>
 			<%} %>
 			</tbody>
 		</table>
 		<!-- 페이징 UI -->
-		<ul class="page-list">
+		<ul class="pagination">
 			<%--
 				startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
 			--%>
 			<%if(startPageNum != 1){ %>
-				<li>
-					<a href="list.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
+				<li class="page-item">
+					<a class="page-link" href="list2.jsp?pageNum=<%=startPageNum-1 %>">Prev</a>
 				</li>
 			<%} %>
 		
 			<%for(int i=startPageNum; i<=endPageNum; i++){ %>
 				<%if(i == pageNum){ %>
-					<li class="active">
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+					<li class="page-item active">
+						<a class="page-link" href="list2.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%}else{ %>
-					<li>
-						<a href="list.jsp?pageNum=<%=i %>"><%=i %></a>
+					<li class="page-item">
+						<a class="page-link" href="list2.jsp?pageNum=<%=i %>"><%=i %></a>
 					</li>
 				<%} %>	
 			<%} %>
@@ -145,8 +106,8 @@
 				마지막 페이지 번호가 전체 페이지의 갯수보다 작으면 Next 링크를 제공한다. 
 			--%>
 			<%if(endPageNum < totalPageCount){ %>
-				<li>
-					<a href="list.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
+				<li class="page-item">
+					<a class="page-link" href="list2.jsp?pageNum=<%=endPageNum+1 %>">Next</a>
 				</li>
 			<%} %>
 		</ul>		
