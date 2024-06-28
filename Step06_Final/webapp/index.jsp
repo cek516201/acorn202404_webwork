@@ -6,8 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>/index.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+	<%-- navbar 포함 시키기 --%>
+	<jsp:include page="/include/navbar.jsp">
+		<jsp:param value="index" name="current"/>
+	</jsp:include>
 	<div class="container">
 		<c:choose>
 			<c:when test="${not empty sessionScope.id }">

@@ -53,6 +53,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/file/list.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <style>
 	/* ul 의 기본 스타일 제거 */
 	.page-list{
@@ -84,6 +85,9 @@
 </style>
 </head>
 <body>
+	<jsp:include page="/include/navbar.jsp">
+		<jsp:param value="file" name="current"/>
+	</jsp:include>
 	<div class="container">
 		<a href="${pageContext.request.contextPath }/file/private/upload_form.jsp">업로드 하러 가기</a>
 		<h1>자료실 목록 입니다</h1>
