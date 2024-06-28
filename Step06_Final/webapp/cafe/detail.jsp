@@ -7,6 +7,17 @@
 	int num=Integer.parseInt(request.getParameter("num"));
 	//DB 에서 해당 글의 정보를 얻어와서 
 	CafeDto dto=CafeDao.getInstance().getData(num);
+	
+	//세션 아이디를 읽어와서 
+	String sessionId=session.getId();
+	//이미 읽었는지 여부를 얻어낸다 
+	boolean isReaded=CafeDao.getInstance().isReaded(num, sessionId);
+	if(!isReaded){
+		//글 조회수도 1 증가 시킨다
+		CafeDao.getInstance().addViewCount(num);
+		//이미 읽었다고 표시한다. 
+		CafeDao.getInstance().insertReaded(num, sessionId);
+	}
 	//응답한다 
 %>
 <!DOCTYPE html>
