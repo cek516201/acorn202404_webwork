@@ -36,6 +36,8 @@
 			<li><a href="${pageContext.request.contextPath }/cafe/list.jsp">글목록보기</a></li>
 		</ul>
 	</div>
+	
+	<jsp:include page="/include/footer.jsp"/>
 </body>
 </html>
 
